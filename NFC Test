@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFC-K Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 10px;
+            line-height: 1.6;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>NFC-K Test</h1>
+    <p>Bitte beantworten Sie die folgenden Fragen auf einer Skala von 1 (trifft überhaupt nicht zu) bis 7 (trifft ganz genau zu).</p>
+    
+    <div class="question">
+        <label>1. Es genügt mir einfach, die Antwort zu kennen, ohne die Gründe für die Antwort eines Problems zu verstehen. (invertiert)</label><br>
+        <input type="number" id="q1" min="1" max="7" placeholder="1-7">
+    </div>
+    <div class="question">
+        <label>2. Ich habe es gern, wenn mein Leben voller kniffliger Aufgaben ist, die ich lösen muss.</label><br>
+        <input type="number" id="q2" min="1" max="7" placeholder="1-7">
+    </div>
+    <div class="question">
+        <label>3. Ich würde kompliziertere Probleme einfachen Problemen vorziehen.</label><br>
+        <input type="number" id="q3" min="1" max="7" placeholder="1-7">
+    </div>
+    <div class="question">
+        <label>4. In erster Linie denke ich, weil ich muss. (invertiert)</label><br>
+        <input type="number" id="q4" min="1" max="7" placeholder="1-7">
+    </div>
+    
+    <button onclick="calculateNFC()">Ergebnis berechnen</button>
+
+    <div id="result" class="result" style="display: none;"></div>
+
+    <script>
+        function calculateNFC() {
+            // Antworten abrufen
+            const q1 = parseInt(document.getElementById("q1").value);
+            const q2 = parseInt(document.getElementById("q2").value);
+            const q3 = parseInt(document.getElementById("q3").value);
+            const q4 = parseInt(document.getElementById("q4").value);
+
+            // Überprüfen, ob alle Antworten gültig sind
+            if ([q1, q2, q3, q4].some(isNaN)) {
+                alert("Bitte beantworten Sie alle Fragen mit einer Zahl zwischen 1 und 7.");
+                return;
+            }
+
+            // Invertierte Antworten berechnen (Items 1 und 4)
+            const invertedQ1 = 8 - q1;
+            const invertedQ4 = 8 - q4;
+
+            // NFC-Wert berechnen
+            const nfcScore = (invertedQ1 + q2 + q3 + invertedQ4) / 4;
+
+            // Ergebnis anzeigen
+            let interpretation = "";
+            if (nfcScore <= 2.9) {
+                interpretation = "Geringe Ausprägung des Need for Cognition (NFC).";
+            } else if (nfcScore <= 3.9) {
+                interpretation = "Unterdurchschnittliche NFC-Ausprägung.";
+            } else if (nfcScore <= 4.9) {
+                interpretation = "Moderate NFC-Ausprägung.";
+            } else if (nfcScore <= 5.9) {
+                interpretation = "Überdurchschnittliche NFC-Ausprägung.";
+            } else {
+                interpretation = "Hohe NFC-Ausprägung.";
+            }
+
+            document.getElementById("result").style.display = "block";
+            document.getElementById("result").innerHTML = `
+                <p><strong>Ihr NFC-Wert:</strong> ${nfcScore.toFixed(2)}</p>
+                <p>${interpretation}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
