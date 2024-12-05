@@ -79,26 +79,51 @@
             // NFC-Wert berechnen
             const nfcScore = (invertedQ1 + q2 + q3 + invertedQ4) / 4;
 
-            // Ergebnis anzeigen
+            // Auswertung basierend auf dem NFC-Wert
             let interpretation = "";
             if (nfcScore <= 2.9) {
-                interpretation = "Geringe Ausprägung des Need for Cognition (NFC).";
+                interpretation = `
+                    <strong>Ergebnis:</strong> Geringe NFC-Ausprägung.<br>
+                    <strong>Fazit:</strong> Sie bevorzugen einfache Aufgaben und vermeiden kognitiven Aufwand. 
+                    Versuchen Sie, Ihre Denkfreude durch interessante Aufgaben zu steigern.
+                `;
             } else if (nfcScore <= 3.9) {
-                interpretation = "Unterdurchschnittliche NFC-Ausprägung.";
+                interpretation = `
+                    <strong>Ergebnis:</strong> Unterdurchschnittliche NFC-Ausprägung.<br>
+                    <strong>Fazit:</strong> Sie beschäftigen sich gelegentlich mit Denkaufgaben, bevorzugen aber einfache Lösungen.
+                    Gezielte Förderung kann helfen, Ihre Freude an Herausforderungen zu steigern.
+                `;
             } else if (nfcScore <= 4.9) {
-                interpretation = "Moderate NFC-Ausprägung.";
+                interpretation = `
+                    <strong>Ergebnis:</strong> Moderate NFC-Ausprägung.<br>
+                    <strong>Fazit:</strong> Sie haben eine durchschnittliche Freude an Denkaufgaben und engagieren sich situativ.
+                    Besonders spannende oder relevante Aufgaben motivieren Sie.
+                `;
             } else if (nfcScore <= 5.9) {
-                interpretation = "Überdurchschnittliche NFC-Ausprägung.";
+                interpretation = `
+                    <strong>Ergebnis:</strong> Überdurchschnittliche NFC-Ausprägung.<br>
+                    <strong>Fazit:</strong> Sie schätzen Denkaufgaben und kognitive Herausforderungen.
+                    Nutzen Sie diese Stärke, um kreative oder analytische Aufgaben zu meistern.
+                `;
             } else {
-                interpretation = "Hohe NFC-Ausprägung.";
+                interpretation = `
+                    <strong>Ergebnis:</strong> Hohe NFC-Ausprägung.<br>
+                    <strong>Fazit:</strong> Sie lieben kognitive Herausforderungen und gehen bewusst auf schwierige Probleme ein.
+                    Ihre Freude am Denken kann andere inspirieren.
+                `;
             }
 
+            // Ergebnis anzeigen
             document.getElementById("result").style.display = "block";
             document.getElementById("result").innerHTML = `
                 <p><strong>Ihr NFC-Wert:</strong> ${nfcScore.toFixed(2)}</p>
                 <p>${interpretation}</p>
             `;
         }
+    </script>
+</body>
+</html>
+
     </script>
 </body>
 </html>
